@@ -1,0 +1,103 @@
+<div class="sequencer-page" id="sequencer-page">
+
+  <!-- transport: bpm + meter set up the grid, Reset re-initialises the song -->
+  <div class="sequencer-bar">
+    <h2 class="sequencer-title">Sequencer</h2>
+    <label class="sequencer-field" for="sequencer-bpm">
+      <span class="sequencer-field-label">BPM</span>
+      <input type="number" id="sequencer-bpm" class="sequencer-input" min="20" max="300" step="1" value="120" />
+    </label>
+    <label class="sequencer-field" for="sequencer-meter">
+      <span class="sequencer-field-label">Meter</span>
+      <select id="sequencer-meter" class="sequencer-select">
+        <option value="4/4">4/4</option>
+        <option value="3/4">3/4</option>
+        <option value="6/8">6/8</option>
+        <option value="2/4">2/4</option>
+      </select>
+    </label>
+    <label class="sequencer-field" for="sequencer-name">
+      <span class="sequencer-field-label">Name</span>
+      <input type="text" id="sequencer-name" class="sequencer-input sequencer-input-text" value="untitled" />
+    </label>
+    <button type="button" class="navbar-button" id="sequencer-init">Reset</button>
+  </div>
+
+  <div class="sequencer-main">
+
+    <!-- The song as pitch over time: higher tones sit higher, like a sheet of
+         music laid flat. PLACEHOLDER — a real score view replaces this later. -->
+    <div class="sequencer-roll-wrap">
+      <div class="sequencer-roll" id="sequencer-roll"></div>
+      <p class="sequencer-hint">
+        Click anywhere to move the write position, or a note to write into its chord.
+        Tones written without moving on sound together.
+      </p>
+    </div>
+
+    <!-- Every tone modifier lives in here so that this box scrolls on its own
+         instead of pushing the roll and the piano off the page. -->
+    <div class="sequencer-panel" id="sequencer-panel">
+
+      <div class="seq-group">
+        <span class="seq-group-label">Tone</span>
+        <span class="sequencer-selection" id="sequencer-selection"></span>
+      </div>
+
+      <div class="seq-group">
+        <span class="seq-group-label">Length</span>
+        <div class="sequencer-lengths" id="sequencer-lengths"></div>
+      </div>
+
+      <div class="seq-group">
+        <span class="seq-group-label">Voice</span>
+        <select id="sequencer-voice" class="pianus-select"></select>
+      </div>
+
+      <div class="seq-group">
+        <span class="seq-group-label">Volume</span>
+        <input type="range" id="sequencer-amp" class="sequencer-range" min="0" max="1" step="0.05" value="0.8" />
+        <span class="sequencer-value" id="sequencer-amp-value">0.80</span>
+      </div>
+
+      <div class="seq-group">
+        <span class="seq-group-label">At <span class="sequencer-value" id="sequencer-cursor-readout">1.1</span></span>
+        <div class="seq-buttons">
+          <button type="button" class="navbar-button seq-btn" id="sequencer-cursor-back" aria-label="One slot back">&#9664;</button>
+          <button type="button" class="navbar-button seq-btn" id="sequencer-cursor-forward" aria-label="One slot forward">&#9654;</button>
+          <button type="button" class="navbar-button seq-btn" id="sequencer-add-tone">Tone</button>
+          <button type="button" class="navbar-button seq-btn" id="sequencer-add-pause">Rest</button>
+          <button type="button" class="navbar-button seq-btn" id="sequencer-edit-tone">Replace</button>
+          <button type="button" class="navbar-button seq-btn" id="sequencer-delete-tone">Delete</button>
+          <button type="button" class="navbar-button seq-btn" id="sequencer-advance"
+                  title="Off: tones written one after another stack into a chord. On: the write position moves along after each one.">auto-step</button>
+        </div>
+      </div>
+
+      <div class="seq-group">
+        <span class="seq-group-label">Song</span>
+        <div class="seq-buttons">
+          <button type="button" class="navbar-button seq-btn" id="sequencer-review"
+                  title="Plays the song from the write position, highlighting each key on the piano as it sounds">Review</button>
+          <button type="button" class="navbar-button seq-btn" id="sequencer-save">Save</button>
+          <select id="sequencer-song-select" class="pianus-select"></select>
+          <button type="button" class="navbar-button seq-btn" id="sequencer-load">Load</button>
+          <button type="button" class="navbar-button seq-btn" id="sequencer-delete">Delete</button>
+          <button type="button" class="navbar-button seq-btn" id="sequencer-load-midi">Load MIDI</button>
+          <input type="file" id="sequencer-midi-file" accept=".mid,.midi,audio/midi" hidden />
+        </div>
+      </div>
+
+      <details class="seq-details">
+        <summary>Song text</summary>
+        <button type="button" class="navbar-button seq-btn" id="sequencer-dump"
+                title="Logs the song and stores it under sequencus:output">Log &amp; store</button>
+        <pre class="sequencer-format-f" id="sequencer-format-f"></pre>
+      </details>
+
+    </div>
+  </div>
+
+  <!-- compact piano: on this page it only picks the next tone's pitch -->
+  <p replaceme></p>
+</div>

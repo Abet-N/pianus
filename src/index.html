@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/styles.css" />
+    <title>Pianus</title>
+    <!-- <canvas id="canvas" oncontextmenu="event.preventDefault()"></canvas> -->
+
+    <!-- <script src="game.out.js"></script> -->
+  </head>
+  <body>
+    <div id="rahmen">
+      <div class="navbar">
+        <button
+          class="navbar-hamburger"
+          onclick="toggleNavMenu(event)"
+          aria-haspopup="true"
+          aria-expanded="false"
+          aria-controls="navbar-links"
+          aria-label="Toggle navigation menu"
+        >
+          <span class="navbar-hamburger-bar"></span>
+          <span class="navbar-hamburger-bar"></span>
+          <span class="navbar-hamburger-bar"></span>
+        </button>
+        <div class="navbar-links" id="navbar-links">
+          <button class="navbar-button" onclick="routeFn('..')">Home</button>
+          <button class="navbar-button" onclick="routeFn('/klavier')">Play</button>
+          <div class="navbar-dropdown">
+            <button
+              class="navbar-button navbar-dropdown-toggle"
+              onclick="toggleNavDropdown(event, 'lernen-dropdown')"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              Learn <span class="navbar-dropdown-arrow" aria-hidden="true">&#9662;</span>
+            </button>
+            <div class="navbar-dropdown-menu" id="lernen-dropdown" hidden>
+              <button class="navbar-dropdown-item" onclick="routeFn('/lernen/intervalle')">Interval Game</button>
+              <button class="navbar-dropdown-item" onclick="routeFn('/lernen/quintenzirkel')">Circle of Fifths</button>
+            </div>
+          </div>
+          <button class="navbar-button" onclick="routeFn('/sequencer')">Sequencer</button>
+        </div>
+      </div>
+
+      <!-- MUSIC -->
+      <div>
+      </div>
+      <!-- ROUTER OUTLET-->
+      <div id="router-outlet-0"></div>
+      <!-- <canvas id="canvas"></canvas> -->
+    </div>
+
+    <!-- <script>
+      var Module = {
+        canvas: document.getElementById('canvas')
+      };
+    </script>
+    <script src="game.out.js"></script> -->
+    <!-- <script src="test.js"></script> -->
+     <!-- assumes the location to be in public folder-->
+     <script src="/index.js"></script>
+  </body>
+</html>
+
+<!-- <div>Route To</div>
+<input id="inpute" />
+<button onclick="routeFn()">Route</button> -->
+

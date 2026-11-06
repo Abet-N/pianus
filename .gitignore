@@ -147,3 +147,9 @@ vite.config.ts.timestamp-*
 
 # Turbo Repo
 .turbo
+#
+zeugs/**
+
+# individual files
+server.log
+package-lock.json571ec55 (initialer commit)

@@ -1,0 +1,846 @@
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0px;
+  overflow-x: hidden;
+}
+
+#rahmen {
+  min-height: 100%;
+  background-color: rgb(224, 179, 120);
+  padding: 20px 40px;
+}
+
+.navbar-button {
+  color: #331106;
+  background-color: rgb(182, 137, 78);
+  padding: 10px 16px;
+  font-size: 1rem;
+  min-height: 44px;
+}
+
+.navbar-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.navbar-dropdown-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.navbar-dropdown-arrow {
+  font-size: 0.7em;
+  transition: transform 0.15s ease;
+}
+
+.navbar-dropdown-toggle.open {
+  background-color: rgb(224, 179, 120);
+  box-shadow: inset 0 0 0 2px #331106;
+}
+
+.navbar-dropdown-toggle.open .navbar-dropdown-arrow {
+  transform: rotate(180deg);
+}
+
+.navbar-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  min-width: 100%;
+  margin-top: 4px;
+  background-color: rgb(182, 137, 78);
+  border: 1px solid #331106;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.navbar-dropdown-menu[hidden] {
+  display: none;
+}
+
+.navbar-dropdown-item {
+  color: #331106;
+  background-color: rgb(182, 137, 78);
+  border: none;
+  padding: 10px 16px;
+  font-size: 1rem;
+  min-height: 44px;
+  text-align: left;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.navbar-dropdown-item:hover {
+  background-color: rgb(206, 168, 122);
+}
+
+/* hidden on desktop; the mobile media query below turns it on */
+.navbar-hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  background-color: rgb(182, 137, 78);
+  border: 1px solid #331106;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.navbar-hamburger-bar {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background-color: #331106;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+/* open state morphs the three bars into an X */
+.navbar-hamburger.open .navbar-hamburger-bar:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.navbar-hamburger.open .navbar-hamburger-bar:nth-child(2) {
+  opacity: 0;
+}
+
+.navbar-hamburger.open .navbar-hamburger-bar:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+.voice-select-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 20px 0;
+}
+
+.voice-select-wrap label {
+  color: #331106;
+  font-size: 1rem;
+}
+
+.voice-select {
+  color: #331106;
+  background-color: rgb(182, 137, 78);
+  border: 1px solid #331106;
+  border-radius: 4px;
+  padding: 8px 10px;
+  min-height: 40px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.piano-wrap {
+  --piano-toolbar-height: 52px;
+  position: relative;
+  margin: 20px 0;
+}
+
+.piano-scroll {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  background-color: rgb(206, 168, 122);
+}
+
+.piano {
+  position: relative;
+  height: 300px;
+}
+
+.piano-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: var(--piano-toolbar-height);
+  background-color: rgb(182, 137, 78);
+  padding: 6px 10px;
+  border-radius: 6px 6px 0 0;
+}
+
+.piano-toolbar-buttons {
+  display: flex;
+  gap: 6px;
+}
+
+.piano-ctrl-btn {
+  background-color: rgb(182, 137, 78);
+  color: #331106;
+  border: 1px solid #331106;
+  border-radius: 4px;
+  min-width: 40px;
+  min-height: 40px;
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.piano-ctrl-btn:disabled {
+  background-color: #b8b8b8;
+  border-color: #888888;
+  color: #6e6e6e;
+  cursor: not-allowed;
+}
+
+/* small "+"/"-" hint that expands/collapses the toolbar on larger screens;
+   deliberately styled apart from .piano-ctrl-btn so it doesn't read as a zoom control */
+.piano-collapse-btn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 16px;
+  border-radius: 3px;
+  background-color: rgb(182, 137, 78);
+  color: #331106;
+  border: 1px solid #331106;
+  font-size: 0.7rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+}
+
+/* shaped like the tab on top of a folder: sits flush against the piano's top
+   edge */
+.piano-expand-hint {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: calc(var(--piano-toolbar-height) - 12px);
+  right: 16px;
+  z-index: 2;
+  width: 34px;
+  height: 12px;
+  clip-path: polygon(22% 0%, 78% 0%, 100% 100%, 0% 100%);
+  background-color: rgb(182, 137, 78);
+  color: #331106;
+  border: none;
+  font-size: 0.6rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 0 2px 0;
+}
+
+/* Mobile & tablets: the control bar is always visible, no expand/collapse hint needed.
+   Sticky so it stays on screen instead of scrolling away with the page. */
+@media (max-width: 900px) {
+  .piano-toolbar {
+    display: flex;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+}
+
+/* Larger screens: bar is collapsed (but its space stays reserved, so expanding
+   it doesn't push the piano down) by default, revealed via the folder-tab hint */
+@media (min-width: 901px) {
+  .piano-toolbar {
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .piano-wrap.toolbar-expanded .piano-toolbar {
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .piano-expand-hint {
+    display: flex;
+  }
+
+  .piano-wrap.toolbar-expanded .piano-expand-hint {
+    display: none;
+  }
+
+  .piano-wrap.toolbar-expanded .piano-collapse-btn {
+    display: flex;
+  }
+}
+
+@media (max-width: 700px) {
+  #rahmen {
+    padding: 12px;
+  }
+
+  .navbar-hamburger {
+    display: flex;
+    margin-bottom: 8px;
+  }
+
+  /* collapsed by default; toggleNavMenu() in index.js adds .open */
+  .navbar-links {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .navbar-links.open {
+    display: flex;
+  }
+
+  .navbar-button {
+    width: 100%;
+    padding: 12px;
+    font-size: 1.1rem;
+  }
+
+  .navbar-dropdown {
+    display: block;
+    width: 100%;
+  }
+
+  .navbar-dropdown-menu {
+    position: static;
+    margin-top: 0;
+  }
+
+  /* indent submenu items so they read as nested under "Learn" */
+  .navbar-dropdown-item {
+    padding-left: 28px;
+    background-color: rgb(206, 168, 122);
+  }
+
+  .navbar-dropdown-item:hover {
+    background-color: rgb(224, 179, 120);
+  }
+
+  .piano {
+    height: 220px;
+  }
+}
+
+.piano > div {
+  position: absolute;
+}
+
+.piano > div > div {
+  box-sizing: border-box;
+}
+
+.wm-key-upper, .wl-key-upper, .wr-key-upper {
+  background-color: white;
+  border-style:solid;
+  border-width: 1px 1px 0px 1px;
+  border-color: black;
+}
+
+.wm-key-lower, .wl-key-lower, .wr-key-lower {
+  background-color: white;
+  border-style:solid;
+  border-width: 0px 1px 1px 1px;
+  border-color: black;
+}
+
+.b-key {
+  background-color: black;
+}
+
+.piano-key > * {
+  pointer-events: auto;
+}
+
+.piano-key {
+  outline: none;
+  touch-action: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+.piano-key:focus .wm-key-upper,
+.piano-key:focus .wl-key-upper,
+.piano-key:focus .wr-key-upper,
+.piano-key:focus .wm-key-lower,
+.piano-key:focus .wl-key-lower,
+.piano-key:focus .wr-key-lower {
+  background-color: rgba(245, 226, 199, 0.247);
+}
+
+.piano-key:focus .b-key {
+  background-color: rgba(245, 226, 199, 0.247);
+}
+
+.piano-key.playing .wm-key-upper,
+.piano-key.playing .wl-key-upper,
+.piano-key.playing .wr-key-upper,
+.piano-key.playing .wm-key-lower,
+.piano-key.playing .wl-key-lower,
+.piano-key.playing .wr-key-lower {
+  background-color: rgb(182, 137, 78);
+}
+
+.piano-key.playing .b-key {
+  background-color: rgb(182, 137, 78);
+}
+
+.piano-key.key-correct .wm-key-upper,
+.piano-key.key-correct .wl-key-upper,
+.piano-key.key-correct .wr-key-upper,
+.piano-key.key-correct .wm-key-lower,
+.piano-key.key-correct .wl-key-lower,
+.piano-key.key-correct .wr-key-lower {
+  background-color: #4caf50;
+}
+
+.piano-key.key-correct .b-key {
+  background-color: #2e7d32;
+}
+
+.piano-key.key-wrong .wm-key-upper,
+.piano-key.key-wrong .wl-key-upper,
+.piano-key.key-wrong .wr-key-upper,
+.piano-key.key-wrong .wm-key-lower,
+.piano-key.key-wrong .wl-key-lower,
+.piano-key.key-wrong .wr-key-lower {
+  background-color: #e53935;
+}
+
+.piano-key.key-wrong .b-key {
+  background-color: #b71c1c;
+}
+
+.interval-game-controls {
+  display: flex;
+  gap: 8px;
+  margin: 12px 0;
+}
+
+.interval-game-status {
+  font-size: 1.05rem;
+  min-height: 1.4em;
+}
+
+.interval-game-score {
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+/*[id^="key-"][id*="-wl"] {
+  position: absolute;
+}*/
+
+.circle-of-fifths-layout {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+}
+
+.circle-of-fifths-wrap {
+  width: 300px;
+  flex: 0 0 auto;
+}
+
+.circle-of-fifths-piano {
+  width: 480px;
+  max-width: 100%;
+  flex: 0 0 auto;
+}
+
+.circle-of-fifths-piano .piano-wrap {
+  margin: 0;
+}
+
+.circle-of-fifths-piano .piano {
+  height: 150px;
+}
+
+.circle-of-fifths {
+  display: block;
+  width: 100%;
+  height: auto;
+  /* major color decoration; overridden while .cof-mode-minor is set */
+  --cof-color: #f7ad0e;
+}
+
+.circle-of-fifths.cof-mode-minor {
+  --cof-color: #421b96;
+}
+
+.cof-ring {
+  fill: none;
+  stroke: var(--cof-color);
+  stroke-width: 4px;
+  transition: stroke 0.2s ease;
+}
+
+.cof-tick {
+  stroke: #331106;
+  stroke-width: 2px;
+  pointer-events: none;
+}
+
+.cof-position {
+  cursor: pointer;
+}
+
+.cof-hit {
+  fill: rgba(51, 17, 6, 0.06);
+  transition: fill 0.15s ease;
+}
+
+.cof-position:hover .cof-hit,
+.cof-position:focus .cof-hit {
+  fill: rgba(51, 17, 6, 0.16);
+}
+
+.cof-position.cof-active .cof-hit {
+  fill: var(--cof-color);
+  opacity: 0.35;
+}
+
+.cof-label {
+  font-size: 22px;
+  font-weight: 700;
+  fill: #331106;
+  pointer-events: none;
+  user-select: none;
+}
+
+.cof-position.cof-active .cof-label {
+  fill: var(--cof-color);
+}
+
+.cof-center {
+  fill: var(--cof-color);
+  stroke: #331106;
+  stroke-width: 2px;
+  cursor: pointer;
+  transition: fill 0.2s ease;
+}
+
+.cof-center:hover,
+.cof-center:focus {
+  opacity: 0.88;
+}
+
+.cof-center-label {
+  fill: #fff;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ----------------------------- sequencer ------------------------------- */
+
+/* the sequencer's piano picks a pitch instead of playing it, so the selected
+   key stays marked — a colour of its own, distinct from .playing */
+.piano-key.selected .wm-key-upper,
+.piano-key.selected .wl-key-upper,
+.piano-key.selected .wr-key-upper,
+.piano-key.selected .wm-key-lower,
+.piano-key.selected .wl-key-lower,
+.piano-key.selected .wr-key-lower {
+  background-color: #2a7f8f;
+}
+
+.piano-key.selected .b-key {
+  background-color: #17545f;
+}
+
+/* a key can be .selected (pending tone's pitch) and .playing (sounding during
+   review) at once — same specificity as .selected above would let source
+   order decide, so pair the classes here to make sure playing always wins */
+.piano-key.selected.playing .wm-key-upper,
+.piano-key.selected.playing .wl-key-upper,
+.piano-key.selected.playing .wr-key-upper,
+.piano-key.selected.playing .wm-key-lower,
+.piano-key.selected.playing .wl-key-lower,
+.piano-key.selected.playing .wr-key-lower {
+  background-color: rgb(182, 137, 78);
+}
+
+.piano-key.selected.playing .b-key {
+  background-color: rgb(182, 137, 78);
+}
+
+/* this page is a pitch picker, not an instrument — the keys only need to be
+   big enough to hit, so the piano is about half its usual height here */
+.sequencer-page .piano {
+  height: 150px;
+}
+
+.sequencer-page .piano-wrap {
+  margin: 12px 0 0 0;
+}
+
+.sequencer-title {
+  margin: 0 12px 0 0;
+  color: #331106;
+}
+
+.sequencer-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 12px 0;
+}
+
+/* roll on the left, every tone modifier boxed on the right */
+.sequencer-main {
+  display: flex;
+  align-items: stretch;
+  gap: 12px;
+}
+
+.sequencer-roll-wrap {
+  flex: 1 1 420px;
+  min-width: 0;
+}
+
+.sequencer-panel {
+  flex: 0 0 300px;
+  max-height: 300px;
+  overflow-y: auto;
+  background-color: rgb(206, 168, 122);
+  border: 1px solid #331106;
+  border-radius: 4px;
+  padding: 10px 12px;
+}
+
+/* phones get the stacked version — cramped, but nothing overlaps */
+@media (max-width: 860px) {
+  .sequencer-main {
+    flex-direction: column;
+  }
+
+  .sequencer-panel {
+    flex: 1 1 auto;
+    max-height: 260px;
+  }
+}
+
+.seq-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  padding: 0 0 8px 0;
+  margin: 0 0 8px 0;
+  border-bottom: 1px solid rgba(51, 17, 6, 0.25);
+}
+
+.seq-group-label {
+  color: #331106;
+  font-weight: 700;
+  min-width: 5.5ch;
+}
+
+.seq-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+/* the panel holds a lot of controls, so its buttons are smaller than the
+   navbar-button default they inherit from */
+.seq-btn {
+  padding: 6px 9px;
+  min-height: 32px;
+  font-size: 0.85rem;
+  border: 1px solid #331106;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.seq-btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.seq-btn.selected {
+  background-color: rgb(224, 179, 120);
+  box-shadow: inset 0 0 0 2px #331106;
+  font-weight: 700;
+}
+
+.sequencer-lengths {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.sequencer-field {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.sequencer-field-label,
+.sequencer-value {
+  color: #331106;
+}
+
+.sequencer-value,
+.sequencer-selection {
+  font-family: monospace;
+}
+
+.sequencer-selection {
+  color: #331106;
+  background-color: rgb(224, 179, 120);
+  border: 1px solid #331106;
+  border-radius: 3px;
+  padding: 4px 8px;
+}
+
+.sequencer-hint {
+  color: #5a2a10;
+  font-size: 0.8rem;
+  margin: 4px 0 0 0;
+}
+
+.sequencer-input,
+.pianus-select {
+  color: #331106;
+  background-color: rgb(182, 137, 78);
+  border: 1px solid #331106;
+  border-radius: 4px;
+  padding: 6px 8px;
+  min-height: 34px;
+  font-size: 0.9rem;
+}
+
+.sequencer-input[type="number"] {
+  width: 7ch;
+}
+
+.sequencer-input-text {
+  width: 14ch;
+}
+
+.sequencer-range {
+  accent-color: #331106;
+  width: 110px;
+}
+
+.seq-details > summary {
+  color: #331106;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 2px 0;
+}
+
+.sequencer-format-f {
+  color: #331106;
+  background-color: rgb(224, 179, 120);
+  border: 1px solid #331106;
+  border-radius: 4px;
+  padding: 8px 10px;
+  margin: 8px 0 0 0;
+  max-height: 160px;
+  overflow: auto;
+  font-size: 0.75rem;
+  line-height: 1.35;
+}
+
+.sequencer-page.sequencer-reviewing .sequencer-roll {
+  box-shadow: inset 0 0 0 2px #b71c1c;
+}
+
+/* PLACEHOLDER visualization — pitch up the vertical axis, time along the
+   horizontal one. Replace together with renderRoll() in route-utils.js. */
+.sequencer-roll {
+  position: relative;
+  height: 300px;
+  background-color: rgb(206, 168, 122);
+  border: 1px solid #331106;
+  border-radius: 4px;
+  overflow: hidden;
+  cursor: crosshair;
+}
+
+/* one line per octave, labelled with that octave's C */
+.seq-guide {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 0;
+  border-top: 1px dashed rgba(51, 17, 6, 0.45);
+  pointer-events: none;
+}
+
+.seq-guide::after {
+  content: attr(data-label);
+  position: absolute;
+  left: 3px;
+  top: -14px;
+  color: rgba(51, 17, 6, 0.65);
+  font-family: monospace;
+  font-size: 0.7rem;
+}
+
+.seq-bar-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 0;
+  border-left: 1px solid rgba(51, 17, 6, 0.4);
+  pointer-events: none;
+}
+
+.seq-cursor {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  min-width: 2px;
+  background-color: rgba(51, 17, 6, 0.16);
+  border-left: 2px solid #331106;
+  pointer-events: none;
+}
+
+.seq-note {
+  position: absolute;
+  min-width: 3px;
+  min-height: 5px;
+  box-sizing: border-box;
+  background-color: #2a7f8f;
+  border: 1px solid #17545f;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.seq-note:hover {
+  background-color: #3aa2b5;
+}
+
+/* the chord currently under the write head — the next tone joins these */
+.seq-note-at-head {
+  background-color: #b6894e;
+  border-color: #331106;
+  box-shadow: 0 0 0 1px #331106;
+}
+
+/* a rest has no pitch, so it marks its span across the full height instead */
+.seq-note-rest {
+  top: 0;
+  bottom: 0;
+  background-color: rgba(51, 17, 6, 0.12);
+  border: 1px dashed rgba(51, 17, 6, 0.5);
+}
+
+.seq-note-rest:hover {
+  background-color: rgba(51, 17, 6, 0.22);
+}

@@ -1,0 +1,30 @@
+{
+  "name": "pianoweb",
+  "version": "1.0.0",
+  "description": "piano playground",
+  "main": "main.js",
+  "scripts": {
+    "build-serve": "npm run build:main && npm run start-server",
+    "start-server": "node ./dist/main.js",
+    "emsdk-setup": "emsdk activate latest",
+    "build:main": "webpack",
+    "build-game": "emsdk activate latest && emcc -s USE_SDL=2 -o ./dist/public/game.out.js  ./src-cpp/game.cpp"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "luxon": "^3.7.2",
+    "tone": "^15.0.4",
+    "webpack-node-externals": "^3.0.0"
+  },
+  "devDependencies": {
+    "copy-webpack-plugin": "^14.0.0",
+    "webpack": "^5.97.1",
+    "webpack-cli": "^6.0.1"
+  },
+  "browser": {
+    "path": false,
+    "stream": false
+  }
+}
